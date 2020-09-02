@@ -6,6 +6,7 @@ import com.eventosapp.eventosapp.presenters.EventPresenter;
 import com.eventosapp.eventosapp.repository.EventRepository;
 import com.eventosapp.eventosapp.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -45,6 +46,7 @@ public class EventServiceImpl implements EventService {
             EventPresenter eventPresenter;
 
             if (event.getId() == null) {
+                event.setActived(true);
                 return new EventPresenter(eventRepository.save(event));
             }
 

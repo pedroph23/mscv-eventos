@@ -1,8 +1,10 @@
 package com.eventosapp.eventosapp.presenters;
 
 import com.eventosapp.eventosapp.model.EventEntity;
+import com.eventosapp.eventosapp.model.GuestEntity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class EventPresenter implements Serializable {
     private Long id;
@@ -13,11 +15,21 @@ public class EventPresenter implements Serializable {
 
     private String date;
 
+    private boolean actived;
+
+    private List<GuestPresenter> guests;
+
     public EventPresenter(EventEntity eventEntity) {
         this.id = eventEntity.getId();
         this.name = eventEntity.getName();
         this.location = eventEntity.getLocation();
         this.date = eventEntity.getDate();
+        this.actived = eventEntity.isActived();
+        
+        if(eventEntity != null && eventEntity.getGuests() != null && eventEntity.getGuests().size() > 0) {
+            this.setGuests(new GuestPresenter().convertToGuestPresenter(eventEntity));
+        }
+
     }
 
     public EventEntity toModel(EventEntity eventEntity) {
@@ -26,14 +38,17 @@ public class EventPresenter implements Serializable {
         this.setName(eventEntity.getName());
         this.setLocation(eventEntity.getLocation());
         this.setDate(eventEntity.getDate());
+        this.setActived(eventEntity.isActived());
 
         eventEntity.setId(this.id);
         eventEntity.setName(this.name);
         eventEntity.setLocation(this.location);
         eventEntity.setDate(this.date);
+        eventEntity.setActived(this.actived);
 
         return eventEntity;
     }
+
 
     public Long getId() {
         return id;
@@ -65,5 +80,21 @@ public class EventPresenter implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public List<GuestPresenter> getGuests() {
+        return guests;
+    }
+
+    public void setGuests(List<GuestPresenter> guests) {
+        this.guests = guests;
+    }
+
+    public boolean isActived() {
+        return actived;
+    }
+
+    public void setActived(boolean actived) {
+        this.actived = actived;
     }
 }

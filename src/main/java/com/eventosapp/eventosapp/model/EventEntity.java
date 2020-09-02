@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "event", schema = "eventdb")
@@ -22,6 +23,21 @@ public class EventEntity implements Serializable {
 
     @Column(name = "date_begin")
     private String date;
+
+    @Column(name = "active")
+    private boolean actived;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "id_guest")
+    private List<GuestEntity> guests;
+
+    public List<GuestEntity> getGuests() {
+        return guests;
+    }
+
+    public void setGuests(List<GuestEntity> guests) {
+        this.guests = guests;
+    }
 
     public String getLocation() {
         return location;
@@ -53,5 +69,13 @@ public class EventEntity implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isActived() {
+        return actived;
+    }
+
+    public void setActived(boolean actived) {
+        this.actived = actived;
     }
 }

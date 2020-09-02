@@ -1,9 +1,11 @@
 package com.eventosapp.eventosapp.parameters;
 
 import com.eventosapp.eventosapp.model.EventEntity;
+import com.eventosapp.eventosapp.model.GuestEntity;
 
 import javax.swing.text.html.parser.Entity;
 import java.io.Serializable;
+import java.util.List;
 
 public class EventParameters implements Serializable {
 
@@ -15,6 +17,11 @@ public class EventParameters implements Serializable {
 
     private String date;
 
+    private boolean actived;
+
+    private List<GuestEntity> guests;
+
+
     public EventEntity toModel() {
         EventEntity eventEntity =  new EventEntity();
 
@@ -22,6 +29,8 @@ public class EventParameters implements Serializable {
         eventEntity.setName(this.name);
         eventEntity.setLocation(this.location);
         eventEntity.setDate(this.date);
+        eventEntity.setActived(this.actived);
+        eventEntity.setGuests(this.guests);
 
         return eventEntity;
     }
@@ -56,5 +65,21 @@ public class EventParameters implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public boolean isActived() {
+        return actived;
+    }
+
+    public void setActived(boolean actived) {
+        this.actived = actived;
+    }
+
+    public List<GuestEntity> getGuests() {
+        return guests;
+    }
+
+    public void setGuests(List<GuestEntity> guests) {
+        this.guests = guests;
     }
 }
